@@ -1,0 +1,35 @@
+[package]
+authors = ["Duc Viet Le <levietduc0712@gmail.com>"]
+name = "cortex-m-rust"
+edition = "2024"
+version = "0.1.0"
+
+[[bin]]
+name = "led_blink"
+path = "src/bin/led_blink.rs"
+test = false
+
+[dependencies]
+cortex-m = { version = "0.7", features = ["critical-section-single-core"] }
+cortex-m-rt = "0.7"
+defmt = "1.0"
+defmt-rtt = "1.0"
+panic-probe = { version = "1.0", features = ["print-defmt"] }
+semihosting = "0.1.20"
+# TODO(4) enter your HAL here
+stm32f4xx-hal = { version = "0.20.0", features = ["stm32f411"] }
+
+[dev-dependencies]
+defmt-test = "0.4"
+
+# cargo build/run
+[profile.dev]
+opt-level = 's'
+codegen-units = 1
+
+# cargo build/run --release
+[profile.release]
+opt-level = 's'
+codegen-units = 1
+lto = 'fat'
+debug = 2
